@@ -24,9 +24,10 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route path="/" exact render={props => (
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+            <Route path="/" exact render={props => (
               <React.Fragment>
-                  <ProjectForm/>
                   <Projects projects={this.state.projects}/>
               </React.Fragment>
           )}/>
@@ -38,6 +39,11 @@ class App extends Component {
           <Route path="/login" render={props => (
               <React.Fragment>
                   <Login/>
+              </React.Fragment>
+          )}/>
+          <Route path="/add_project" render={props => (
+              <React.Fragment>
+                  <ProjectForm/>
               </React.Fragment>
           )}/>
         </div>

@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+
 
 class ProjectForm extends React.Component {
     constructor(props) {
@@ -7,7 +11,7 @@ class ProjectForm extends React.Component {
         this.state = {
             title: '',
             description: '',
-            deadline: '',
+            deadline: '2020-01-01',
             cost: ''
         };
 
@@ -27,43 +31,55 @@ class ProjectForm extends React.Component {
         )
     }
 
+    style = {
+        display:'flex',
+        flexDirection: 'column',
+        maxWidth: '20%',
+        padding: '30px',
+    }
+
     render() {
         return (
-            <form id="project_form">
-                <label>
-                    Title:
-                    <input
-                        name="title"
-                        type="text"
-                        value={this.state.title}
-                        onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Description:
-                    <textarea
-                        name="description"
-                        form="project_form"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <label>
-                    Deadline:
-                    <input
-                        name="deadline"
-                        type="date"
-                        value={this.state.deadline}
-                        onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Cost:
-                    <input
-                        name="cost"
-                        type="number"
-                        value={this.state.cost}
-                        onChange={this.handleChange}/>
-                </label>
-                <input type="submit" value="Submit" onClick={e => this.handleSubmit(e)}/>
+            <form style={this.style}>
+                <TextField
+                    required
+                    label="title"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                    margin="normal"
+                />
+                <TextField
+                    required
+                    label="description"
+                    name="description"
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                    margin="normal"
+                    multiline
+                    rows="4"
+                />
+                <TextField
+                    required
+                    label="deadline"
+                    name="deadline"
+                    value={this.state.deadline}
+                    onChange={this.handleChange}
+                    margin="normal"
+                    type="date"
+                />
+                <TextField
+                    required
+                    label="cost"
+                    name="cost"
+                    value={this.state.cost}
+                    onChange={this.handleChange}
+                    margin="normal"
+                    type="number"
+                />
+                <Button variant="contained" color="primary" onClick={e => this.handleSubmit(e)}>
+                    Add Project
+                </Button>
             </form>
         );
     }

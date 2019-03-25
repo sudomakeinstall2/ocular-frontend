@@ -1,19 +1,26 @@
 import React from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 class Login extends React.Component{
-    state = {
-        email: '',
-        password: ''
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    onChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value,
-        });
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
     }
 
-    onSubmit = (e) => {
+    handleSubmit(event) {
         axios.post('http://127.0.0.1:8000/rest-auth/login/', {
             email: this.state.email,
             password: this.state.password,
@@ -25,29 +32,41 @@ class Login extends React.Component{
         })
     }
 
+    style = {
+        display:'flex',
+        flexDirection: 'column',
+        maxWidth: '20%',
+        padding: '30px',
+    }
+
     render() {
         return (
-            <div>
-                <h1> Login </h1>
-                <input
+            <form style={this.style}>
+                <TextField
+                    required
+                    label="email"
                     name="email"
-                    placeholder="Email"
-                    onChange={e => this.onChange(e)}
                     value={this.state.email}
+                    onChange={this.handleChange}
+                    margin="normal"
                 />
-                <input
+                <TextField
+                    required
+                    label="password"
                     name="password"
-                    placeholder="Password"
                     type="password"
-                    onChange={e => this.onChange(e)}
                     value={this.state.password}
+                    onChange={this.handleChange}
+                    margin="normal"
                 />
-                <input
-                    name="submit"
-                    type="submit"
-                    onClick={e => this.onSubmit(e)}
-                />
-            </div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={e => this.handleSubmit(e)}
+                >
+                    Login
+                </Button>
+            </form>
         );
     }
 
