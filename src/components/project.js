@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 
 class Project extends Component {
+    title = this.props.project.title;
+    cost = this.props.project.cost;
+    deadline = this.props.project.deadline;
+
     render() {
         return (
-            <div>
-                {this.props.project.title}
-            </div>
+            <tr>
+                <td>
+                    {this.title}
+                </td>
+                <td>
+                    {this.cost}
+                </td>
+                <td>
+                    {this.deadline}
+                </td>
+            </tr>
         );
     }
 

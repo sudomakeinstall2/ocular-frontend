@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
+import About from './components/pages/about'
 import Projects from './components/projects';
+import Login from './components/login';
+import axios from 'axios';
 
 class App extends Component {
   state = {
-    projects: [
-      {
-        id: 1,
-        title: 'p1'
-      },
-      {
-        id: 2,
-        title: 'p2'
-      }
-    ]
+    projects: []
   };
 
-  render() {
+  componentDidMount() {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+      axios.get('http://localhost:8000/projects/').then(
+          res => this.setState({projects: res.data})
+      )
+  }
+
+    render() {
     console.log(this.state.projects);
     return (
-      <div className="App">
-        <Projects projects={this.state.projects}/>
-      </div>
+      <Router>
+        <div className="App">
+          <Route path="/" exact render={props => (
+              <React.Fragment>
+                <Projects projects={this.state.projects}/>
+              </React.Fragment>
+          )}/>
+          <Route path="/about" render={props => (
+              <React.Fragment>
+                <About/>
+              </React.Fragment>
+          )}/>
+          <Route path="/login" render={props => (
+              <React.Fragment>
+                  <Login/>
+              </React.Fragment>
+          )}/>
+        </div>
+      </Router>
     );
   }
 }
