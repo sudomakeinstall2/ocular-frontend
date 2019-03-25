@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import About from './components/pages/about'
 import Projects from './components/projects';
+import ProjectForm from './components/project_form';
 import Login from './components/login';
 import axios from 'axios';
 
@@ -25,7 +26,8 @@ class App extends Component {
         <div className="App">
           <Route path="/" exact render={props => (
               <React.Fragment>
-                <Projects projects={this.state.projects}/>
+                  <ProjectForm/>
+                  <Projects projects={this.state.projects}/>
               </React.Fragment>
           )}/>
           <Route path="/about" render={props => (
