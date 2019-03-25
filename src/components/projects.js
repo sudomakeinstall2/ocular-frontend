@@ -4,18 +4,11 @@ import Project from './project'
 class Projects extends Component {
     render() {
         return (
-
-                <table>
-                    <tr>
-                        <th>title</th>
-                        <th>cost</th>
-                        <th>deadline</th>
-                    </tr>
+<div style={{display: 'flex', padding: '20px'}}>
                     {this.props.projects.map( (project) => (
                         <Project key={project.id} project={project}/>
                     ))}
-                </table>
-
+</div>
         );
     }
 }
