@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 
 const classes = {
     card: {
-        minWidth: '100px',
+        minWidth: '150px',
+        margin: 7
     },
     bullet: {
         display: 'inline-block',
@@ -31,7 +32,7 @@ class Project extends Component {
 
     render() {
         return (
-            <Card className={classes.card}>
+            <Card style={classes.card}>
                 <CardContent>
 
                     <Typography variant="h5" component="h2">
@@ -40,10 +41,10 @@ class Project extends Component {
                     <Typography component="p">
                         {this.description}
                     </Typography>
-                    <Typography className={classes.title} color="textSecondary">
+                    <Typography style={classes.title} color="textSecondary">
                         {this.cost} $
                     </Typography>
-                    <Typography className={classes.title} color="textSecondary">
+                    <Typography style={classes.title} color="textSecondary">
                         {this.deadline}
                     </Typography>
                 </CardContent>
