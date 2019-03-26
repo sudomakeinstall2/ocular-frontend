@@ -36,7 +36,7 @@ class ProjectForm extends React.Component {
         flexDirection: 'column',
         maxWidth: '20%',
         padding: '30px',
-    }
+    };
 
     render() {
         return (
