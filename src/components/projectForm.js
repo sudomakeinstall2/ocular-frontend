@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 
-
 class ProjectForm extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +31,7 @@ class ProjectForm extends React.Component {
     }
 
     style = {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'column',
         maxWidth: '20%',
         padding: '30px',
@@ -84,4 +83,5 @@ class ProjectForm extends React.Component {
         );
     }
 }
+
 export default ProjectForm;

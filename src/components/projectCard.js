@@ -28,12 +28,6 @@ class ProjectCard extends Component {
 
     render() {
         const {title, cost, deadline, description, id} = this.props.project;
-        // const LinkToMilestones = props => <Link to={{
-        //     pathname: '/add_milestone',
-        //     state: {
-        //         project: 1
-        //     }
-        // }}> ;
         return (
             <Card style={classes.card}>
                 <Link to={{
@@ -41,27 +35,24 @@ class ProjectCard extends Component {
                     state: {
                         project: this.props.project,
                     }
-                }} style={{ textDecoration: 'none' }}>
-                <CardActionArea>
-                    <CardContent>
-                        <Typography variant="h5" component="h2">
-                            {title}
-                        </Typography>
-                        <Typography component="p">
-                            {description}
-                        </Typography>
-                        <Typography style={classes.title} color="textSecondary">
-                            {cost} $
-                        </Typography>
-                        <Typography style={classes.title} color="textSecondary">
-                            {deadline}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
+                }} style={{textDecoration: 'none'}}>
+                    <CardActionArea>
+                        <CardContent>
+                            <Typography variant="h5" component="h2">
+                                {title}
+                            </Typography>
+                            <Typography component="p">
+                                {description}
+                            </Typography>
+                            <Typography style={classes.title} color="textSecondary">
+                                {cost} $
+                            </Typography>
+                            <Typography style={classes.title} color="textSecondary">
+                                {deadline}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
                 </Link>
-                {/*<CardActions>*/}
-                {/*    <Button size="small">Learn More</Button>*/}
-                {/*</CardActions>*/}
             </Card>
         );
     }

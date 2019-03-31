@@ -9,6 +9,7 @@ import Register from "./components/register";
 import axios from 'axios';
 import ProjectDetail from "./components/projectDetail";
 import MilestoneForm from "./components/milestoneForm";
+import ProposalForm from "./components/proposalForm";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -63,6 +64,7 @@ class App extends Component {
                     <Route path="/project/:id" component={ProjectDetail}/>
                     <PrivateRoute path="/add_project" component={ProjectForm}/>
                     <PrivateRoute path="/add_milestone" component={MilestoneForm}/>
+                    <PrivateRoute path="/add_proposal" component={ProposalForm}/>
                 </div>
             </Router>
         );
