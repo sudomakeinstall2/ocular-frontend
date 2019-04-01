@@ -2,15 +2,12 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import MilestoneListItem from "./milestoneListItem";
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ThumbUpAlt from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAlt from '@material-ui/icons/ThumbDownAlt';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios'
-import {Link} from 'react-router-dom';
 
 
 class Proposals extends React.Component {
@@ -19,13 +16,20 @@ class Proposals extends React.Component {
         super(props);
         this.state = {
             proposals: [],
-            project: props.project_id,
+            project_id: props.project_id,
         };
     }
 
     componentDidMount() {
+        const {project_id} = this.state;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
-        axios.get(`http://localhost:8000/project/${this.state.project}/proposals/`).then(
+        let url = null;
+        if (project_id) {
+            url = `http://localhost:8000/project/${this.state.project_id}/proposals/`
+        } else {
+            url = `http://localhost:8000/user/${localStorage.getItem('user_id')}/proposals/`
+        }
+        axios.get(url).then(
             res => this.setState({proposals: res.data})
         )
     }
@@ -44,6 +48,45 @@ class Proposals extends React.Component {
         },
     };
 
+    getIconBasedOnAnswer = (proposal, is_accept) => {
+        const is_disabled = proposal.answer_state !== "not_answered";
+        const is_accepted = proposal.answer_state === "accepted";
+        const is_rejected = proposal.answer_state === "rejected";
+
+        if (is_accept)
+            return this.getAcceptIcon(is_accepted, is_disabled, proposal.answer);
+        return this.getRejectIcon(is_rejected, is_disabled, proposal.answer);
+
+    };
+
+    getAcceptIcon = (is_accepted, is_disabled, answer_id) => {
+        const style = {};
+        if (is_accepted) {
+            style.color = "green";
+        }
+        return <IconButton
+            onClick={() => this.updateProposalAnswer(answer_id, 'accepted')}
+            style={style}
+            disabled={is_disabled}
+        >
+            <ThumbUpAlt/>
+        </IconButton>
+    };
+
+    getRejectIcon = (is_rejected, is_disabled, answer_id) => {
+        const style = {};
+        if (is_rejected) {
+            style.color = "red";
+        }
+        return <IconButton
+            onClick={() => this.updateProposalAnswer(answer_id, 'rejected')}
+            style={style}
+            disabled={is_disabled}
+        >
+            <ThumbDownAlt/>
+        </IconButton>
+    };
+
 
     render() {
         return (
@@ -54,17 +97,11 @@ class Proposals extends React.Component {
                     </ListItem>
                     <Divider/>
                     {this.state.proposals.map((proposal) => (
-                        <ListItem>
-
-                            {proposal.user}, {proposal.cost}, {proposal.answer}
-                            <IconButton onClick={e => this.updateProposalAnswer(proposal.answer, 'rejected')}>
-                                <ThumbDownAlt/>
-                            </IconButton>
+                        <ListItem key={proposal.id}>
+                            <ListItemText primary={proposal.cost+"$"} secondary={proposal.user} />
+                            {this.getIconBasedOnAnswer(proposal, false)}
                             <ListItemSecondaryAction>
-                                <IconButton aria-label="Delete"
-                                            onClick={e => this.updateProposalAnswer(proposal.answer, 'accepted')}>
-                                    <ThumbUpAlt/>
-                                </IconButton>
+                                {this.getIconBasedOnAnswer(proposal, true)}
                             </ListItemSecondaryAction>
 
                         </ListItem>

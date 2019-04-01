@@ -10,6 +10,7 @@ import axios from 'axios';
 import ProjectDetail from "./components/projectDetail";
 import MilestoneForm from "./components/milestoneForm";
 import ProposalForm from "./components/proposalForm";
+import Proposals from "./components/proposalList";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -44,6 +45,7 @@ class App extends Component {
                     <Route path="/" exact render={props => (
                         <React.Fragment>
                             <Projects projects={this.state.projects}/>
+                            <Proposals project_id={0}/>
                         </React.Fragment>
                     )}/>
                     <Route path="/about" render={props => (
