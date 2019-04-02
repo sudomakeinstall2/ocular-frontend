@@ -20,23 +20,24 @@ class MilestoneForm extends React.Component {
     }
 
     handleChange(event) {
+        console.log(this.props.project_id)
         this.setState({[event.target.name]: event.target.value});
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        let project_id = this.props.location.state.project_id;
+    handleSubmit() {
+        const project_id = this.props.project_id;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         axios.post(`http://localhost:8000/project/${project_id}/milestones/`, this.state).then(
             res => console.log(res)
-        )
+        );
+        this.props.onSubmit(true);
     }
 
     style = {
         display:'flex',
         flexDirection: 'column',
-        maxWidth: '20%',
-        padding: '30px',
+        // maxWidth: '20%',
+        // padding: '30px',
     };
 
     render() {
@@ -69,7 +70,7 @@ class MilestoneForm extends React.Component {
                     margin="normal"
                     type="date"
                 />
-                <Button variant="contained" color="primary" onClick={e => this.handleSubmit(e)}>
+                <Button variant="contained" color="primary" onClick={this.handleSubmit}>
                     Add Milestone
                 </Button>
             </form>

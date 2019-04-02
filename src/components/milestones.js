@@ -2,11 +2,18 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import MilestoneListItem from "./milestoneListItem";
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios'
 import {Link} from 'react-router-dom';
-
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import MilestoneForm from "./milestoneForm";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 class Milestones extends React.Component {
 
@@ -15,10 +22,15 @@ class Milestones extends React.Component {
         this.state = {
             milestones: [],
             project: props.project_id,
+            is_dialog_open: false,
         };
     }
 
     componentDidMount() {
+        this.getData();
+    }
+
+    getData() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         axios.get(`http://localhost:8000/project/${this.state.project}/milestones/`).then(
             res => this.setState({milestones: res.data})
@@ -32,6 +44,14 @@ class Milestones extends React.Component {
         },
     };
 
+    handleOpenDialog = () => {this.setState({is_dialog_open: true})};
+    handleCloseDialog = (should_refresh) => {
+        this.setState({is_dialog_open: false});
+        if (should_refresh){
+            this.getData();
+        }
+    };
+
 
     render() {
         return (
@@ -42,21 +62,32 @@ class Milestones extends React.Component {
                     </ListItem>
                     <Divider/>
                     {this.state.milestones.map((milestone) => (
-                        <ListItem button>
-                            <MilestoneListItem key={milestone.id} milestone={milestone}/>
+                        <ListItem key={milestone.id}>
+                            <ListItemText primary={milestone.title} secondary={milestone.deadline} />
                         </ListItem>
                     ))}
-                    <Link to={{
-                        pathname: `/add_milestone`,
-                        state: {
-                            project_id: this.state.project,
-                        }
-                    }} style={{textDecoration: 'none'}}>
-                        <ListItem href="/add_milestone">
-                            <ListItemText primary="Add Milestone"/>
-                        </ListItem>
-                    </Link>
+                    <Fab onClick={this.handleOpenDialog}>
+                        <AddIcon/>
+                    </Fab>
                 </List>
+                <Dialog
+                    open={this.state.is_dialog_open}
+                    onClose={this.handleCloseDialog}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">Add Milestone</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            You can add milestone to your project.
+                        </DialogContentText>
+                        <MilestoneForm project_id={this.state.project} onSubmit={this.handleCloseDialog}/>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={()=>{this.handleCloseDialog(false)}} color="primary">
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }
