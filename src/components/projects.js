@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import ProjectCard from './projectCard'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import axios from 'axios';
+
 
 const styles = theme => ({
     fab: {
@@ -17,27 +19,32 @@ const styles = theme => ({
 
 class Projects extends Component {
 
-    style = {
-        display: 'flex', padding: '20px', flexWrap: 'wrap'
+    state = {
+        projects: []
     };
+
+    componentDidMount() {
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+        axios.get('http://localhost:8000/projects/').then(
+            res => this.setState({projects: res.data})
+        )
+    }
 
     render() {
         const { classes } = this.props;
         return (
             <React.Fragment>
-            <div style={this.style}>
-                {this.props.projects.map((project) => (
+                {this.state.projects.map((project) => (
                     <ProjectCard key={project.id} project={project}/>
                 ))}
                 <Fab
                     color="primary"
                     aria-label="Add"
                     href="/add_project"
-                    className={classes.absolute}
+                    // className={classes.absolute}
                 >
                     <AddIcon />
                 </Fab>
-            </div>
 
             </React.Fragment>
         );
