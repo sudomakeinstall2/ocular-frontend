@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import MilestoneForm from "./milestoneForm";
+import { SnackbarProvider, withSnackbar } from "notistack";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -48,8 +48,12 @@ class Proposals extends React.Component {
             url = `http://localhost:8000/user/${localStorage.getItem('user_id')}/proposals/`
         }
         axios.get(url).then(
-            res => this.setState({proposals: res.data})
-        )
+            res => {
+                this.setState({proposals: res.data});
+            }
+        ).catch(res=>{
+            this.props.enqueueSnackbar('error', 'error');
+        })
     }
 
     componentDidMount() {
@@ -59,7 +63,17 @@ class Proposals extends React.Component {
     updateProposalAnswer(answer_id, state) {
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         axios.patch(`http://localhost:8000/answer/${answer_id}/`, {state}).then(
-            res => alert(res.data)
+            res => {
+                this.props.enqueueSnackbar('Successfully Done!', 'success');
+            }
+        ).catch(
+            error => {
+                // console.log('hello', error.response.data);
+                this.props.enqueueSnackbar(error.response.data.detail, {
+                    variant: 'error',
+                    autoHideDuration: 2000,
+                });
+            }
         )
     }
 
@@ -155,4 +169,4 @@ class Proposals extends React.Component {
     }
 }
 
-export default Proposals;
+export default withSnackbar(Proposals);
