@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { withSnackbar } from "notistack";
 
 
 class Register extends React.Component{
@@ -27,18 +28,21 @@ class Register extends React.Component{
             password1: this.state.password1,
             password2: this.state.password2,
         }).then( function (response) {
-            localStorage.setItem('token', response.data.key)
-            console.log(localStorage.getItem('token'))
-        }).catch(function (error) {
-            console.log(error)
+            localStorage.setItem('token', response.data.key);
+            this.props.onSubmit(true);
+        }).catch( error => {
+            this.props.enqueueSnackbar("Can't register!", {
+                variant: 'error',
+                autoHideDuration: 2000,
+            });
         })
     }
 
     style = {
         display:'flex',
         flexDirection: 'column',
-        maxWidth: '20%',
-        padding: '30px',
+        // maxWidth: '20%',
+        // padding: '30px',
     };
 
     render() {
@@ -82,4 +86,4 @@ class Register extends React.Component{
     }
 }
 
-export default Register;
+export default withSnackbar(Register);

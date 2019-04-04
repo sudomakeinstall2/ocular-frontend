@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { SnackbarProvider, withSnackbar } from "notistack";
+import { withSnackbar } from "notistack";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
