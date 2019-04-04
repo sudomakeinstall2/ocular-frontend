@@ -39,8 +39,8 @@ class Milestones extends React.Component {
 
     styles = {
         root: {
-            width: '50%',
-            maxWidth: 360,
+            // width: '50%',
+            // maxWidth: 360,
         },
     };
 
@@ -56,7 +56,7 @@ class Milestones extends React.Component {
     render() {
         return (
             <div style={this.styles.root}>
-                <List component="nav">
+                <List >
                     <ListItem>
                         Milestones
                     </ListItem>
@@ -66,7 +66,7 @@ class Milestones extends React.Component {
                             <ListItemText primary={milestone.title} secondary={milestone.deadline} />
                         </ListItem>
                     ))}
-                    <Fab onClick={this.handleOpenDialog}>
+                    <Fab onClick={this.handleOpenDialog} style={{margin: 10}}>
                         <AddIcon/>
                     </Fab>
                 </List>

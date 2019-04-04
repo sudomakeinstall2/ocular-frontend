@@ -43,8 +43,8 @@ class Proposals extends React.Component {
 
     styles = {
         root: {
-            width: '50%',
-            maxWidth: 360,
+            // width: '50%',
+            // maxWidth: 360,
         },
     };
 

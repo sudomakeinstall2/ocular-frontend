@@ -20,7 +20,6 @@ class MilestoneForm extends React.Component {
     }
 
     handleChange(event) {
-        console.log(this.props.project_id)
         this.setState({[event.target.name]: event.target.value});
     }
 

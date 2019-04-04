@@ -27,14 +27,15 @@ class ProjectForm extends React.Component {
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         axios.post('http://localhost:8000/projects/', this.state).then(
             res => console.log(res)
-        )
+        );
+        this.props.onSubmit(true);
     }
 
     style = {
         display: 'flex',
         flexDirection: 'column',
-        maxWidth: '20%',
-        padding: '30px',
+        // minWidth: '100px',
+        // padding: '30px',
     };
 
     render() {

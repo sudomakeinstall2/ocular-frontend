@@ -7,11 +7,11 @@ import ProjectForm from './components/projectForm';
 import Login from './components/login';
 import Register from "./components/register";
 import axios from 'axios';
-import ProjectDetail from "./components/projectDetail";
 import MilestoneForm from "./components/milestoneForm";
 import ProposalForm from "./components/proposalForm";
 import Proposals from "./components/proposalList";
 import Album from "./components/pages/first";
+import ProjectPage from "./components/pages/project"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -66,7 +66,11 @@ class App extends Component {
                             <Register/>
                         </React.Fragment>
                     )}/>
-                    <Route path="/project/:id" component={ProjectDetail}/>
+                    <Route path="/project/:id" render={props => (
+                        <React.Fragment>
+                            <ProjectPage props={props}/>
+                        </React.Fragment>
+                    )}/>
                     <PrivateRoute path="/add_project" component={ProjectForm}/>
                     <PrivateRoute path="/add_milestone" component={MilestoneForm}/>
                     <PrivateRoute path="/add_proposal" component={ProposalForm}/>
