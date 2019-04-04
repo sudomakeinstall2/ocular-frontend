@@ -17,6 +17,7 @@ import Projects from "../projects";
 import ProjectDetail from "../projectDetail";
 import Milestones from "../milestones";
 import Proposals from "../proposalList";
+import NavBar from "../navBar";
 
 const styles = theme => ({
     appBar: {
@@ -75,14 +76,7 @@ function ProjectPage(props) {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
-                    <CameraIcon className={classes.icon} />
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Album layout
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <NavBar/>
             <main>
                 {/* Hero unit */}
                 <div className={classes.heroUnit}>

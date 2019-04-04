@@ -14,6 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Projects from "../projects";
+import NavBar from "../navBar";
 
 const styles = theme => ({
     appBar: {
@@ -70,14 +71,7 @@ function Album(props) {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
-                    <CameraIcon className={classes.icon} />
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Album layout
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <NavBar/>
             <main>
                 {/* Hero unit */}
                 <div className={classes.heroUnit}>

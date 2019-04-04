@@ -7,7 +7,17 @@ import ThumbUpAlt from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAlt from '@material-ui/icons/ThumbDownAlt';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
-import axios from 'axios'
+import axios from 'axios';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import MilestoneForm from "./milestoneForm";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import ProposalForm from "./proposalForm";
 
 
 class Proposals extends React.Component {
@@ -20,7 +30,15 @@ class Proposals extends React.Component {
         };
     }
 
-    componentDidMount() {
+    handleOpenDialog = () => {this.setState({is_dialog_open: true})};
+    handleCloseDialog = (should_refresh) => {
+        this.setState({is_dialog_open: false});
+        if (should_refresh){
+            this.getData();
+        }
+    };
+
+    getData(){
         const {project_id} = this.state;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         let url = null;
@@ -32,6 +50,10 @@ class Proposals extends React.Component {
         axios.get(url).then(
             res => this.setState({proposals: res.data})
         )
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     updateProposalAnswer(answer_id, state) {
@@ -107,6 +129,27 @@ class Proposals extends React.Component {
                         </ListItem>
                     ))}
                 </List>
+                <Fab onClick={this.handleOpenDialog} style={{margin: 0}}>
+                    <AddIcon/>
+                </Fab>
+                <Dialog
+                    open={this.state.is_dialog_open}
+                    onClose={this.handleCloseDialog}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">Add Milestone</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            You can add a proposal for this project.
+                        </DialogContentText>
+                        <ProposalForm project_id={this.state.project_id} onSubmit={this.handleCloseDialog}/>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={()=>{this.handleCloseDialog(false)}} color="primary">
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }

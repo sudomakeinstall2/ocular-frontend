@@ -75,7 +75,7 @@ class Projects extends Component {
                     <DialogTitle id="form-dialog-title">Add Milestone</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            You can add a project.
+                            You can add a project. very long text to scale.................
                         </DialogContentText>
                         <ProjectForm onSubmit={this.handleCloseDialog}/>
                     </DialogContent>

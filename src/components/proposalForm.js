@@ -8,8 +8,8 @@ class ProposalForm extends React.Component {
     style = {
         display: 'flex',
         flexDirection: 'column',
-        maxWidth: '20%',
-        padding: '30px',
+        // maxWidth: '20%',
+        // padding: '30px',
     };
 
     constructor(props) {
@@ -28,11 +28,13 @@ class ProposalForm extends React.Component {
     }
 
     handleSubmit(event) {
-        let project_id = this.props.location.state.project_id;
+        console.log(this.props)
+        let project_id = this.props.project_id;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         axios.post(`http://localhost:8000/project/${project_id}/proposals/`, this.state).then(
             res => console.log(res)
         )
+        this.props.onSubmit(true);
     }
 
     render() {
