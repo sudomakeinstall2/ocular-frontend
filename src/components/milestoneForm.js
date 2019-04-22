@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-
+import * as settings from './config';
 
 
 
@@ -26,7 +26,7 @@ class MilestoneForm extends React.Component {
     handleSubmit() {
         const project_id = this.props.project_id;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
-        axios.post(`http://localhost:8000/project/${project_id}/milestones/`, this.state).then(
+        axios.post(`${settings.host}project/${project_id}/milestones/`, this.state).then(
             res => console.log(res)
         );
         this.props.onSubmit(true);

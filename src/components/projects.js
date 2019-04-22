@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import MilestoneForm from "./milestones";
 import ProjectForm from "./projectForm";
+import * as settings from "./config";
 
 
 const styles = theme => ({
@@ -42,7 +43,7 @@ class Projects extends Component {
 
     getData(){
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-        axios.get('http://localhost:8000/projects/').then(
+        axios.get(`${settings.host}projects/`).then(
             res => this.setState({projects: res.data})
         )
     }
@@ -72,7 +73,7 @@ class Projects extends Component {
                     onClose={this.handleCloseDialog}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Add Milestone</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Add Project</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             You can add a project. very long text to scale.................

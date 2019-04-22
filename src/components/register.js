@@ -3,6 +3,7 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withSnackbar } from "notistack";
+import * as settings from './config';
 
 
 class Register extends React.Component{
@@ -23,7 +24,7 @@ class Register extends React.Component{
     }
 
     handleSubmit(event) {
-        axios.post('http://127.0.0.1:8000/rest-auth/registration/', {
+        axios.post(`${settings.host}rest-auth/registration/`, {
             email: this.state.email,
             password1: this.state.password1,
             password2: this.state.password2,

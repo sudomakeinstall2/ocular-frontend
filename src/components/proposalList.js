@@ -18,6 +18,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import ProposalForm from "./proposalForm";
+import * as settings from "./config";
 
 
 class Proposals extends React.Component {
@@ -43,9 +44,9 @@ class Proposals extends React.Component {
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         let url = null;
         if (project_id) {
-            url = `http://localhost:8000/project/${this.state.project_id}/proposals/`
+            url = `${settings.host}project/${this.state.project_id}/proposals/`
         } else {
-            url = `http://localhost:8000/user/${localStorage.getItem('user_id')}/proposals/`
+            url = `${settings.host}user/${localStorage.getItem('user_id')}/proposals/`
         }
         axios.get(url).then(
             res => {
@@ -62,7 +63,7 @@ class Proposals extends React.Component {
 
     updateProposalAnswer(answer_id, state) {
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
-        axios.patch(`http://localhost:8000/answer/${answer_id}/`, {state}).then(
+        axios.patch(`${settings.host}answer/${answer_id}/`, {state}).then(
             res => {
                 this.props.enqueueSnackbar('Successfully Done!', 'success');
             }

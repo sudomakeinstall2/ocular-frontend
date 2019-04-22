@@ -11,7 +11,8 @@ import MilestoneForm from "./components/milestoneForm";
 import ProposalForm from "./components/proposalForm";
 import Proposals from "./components/proposalList";
 import Album from "./components/pages/first";
-import ProjectPage from "./components/pages/project"
+import ProjectPage from "./components/pages/project";
+import * as settings from './components/config';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -30,7 +31,7 @@ class App extends Component {
 
     componentDidMount() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-        axios.get('http://localhost:8000/projects/').then(
+        axios.get(`${settings.host}/projects/`).then(
             res => this.setState({projects: res.data})
         )
     }

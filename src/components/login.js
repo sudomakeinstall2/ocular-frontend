@@ -3,7 +3,7 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withSnackbar } from "notistack";
-
+import * as settings from './config';
 
 class Login extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        axios.post('http://127.0.0.1:8000/rest-auth/login/', {
+        axios.post(`${settings.host}rest-auth/login/`, {
             email: this.state.email,
             password: this.state.password,
         }).then(response => {
@@ -30,7 +30,7 @@ class Login extends React.Component {
             let setUser = (props) => {
                 axios.defaults.headers.common['Authorization'] =
                     'Token ' + localStorage.getItem('token');
-                axios.get('http://127.0.0.1:8000/user/self/').then(function (response) {
+                axios.get(`${settings.host}user/self/`).then(function (response) {
                     localStorage.setItem('user_email', response.data.email);
                     localStorage.setItem('user_id', response.data.id);
                 }).catch(function (error) {

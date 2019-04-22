@@ -14,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MilestoneForm from "./milestoneForm";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import * as settings from './config';
 
 class Milestones extends React.Component {
 
@@ -32,7 +33,7 @@ class Milestones extends React.Component {
 
     getData() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-        axios.get(`http://localhost:8000/project/${this.state.project}/milestones/`).then(
+        axios.get(`${settings.host}project/${this.state.project}/milestones/`).then(
             res => this.setState({milestones: res.data})
         )
     }
