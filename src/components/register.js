@@ -28,7 +28,7 @@ class Register extends React.Component{
             email: this.state.email,
             password1: this.state.password1,
             password2: this.state.password2,
-        }).then( function (response) {
+        }).then( response => {
             localStorage.setItem('token', response.data.key);
             this.props.onSubmit(true);
         }).catch( error => {
