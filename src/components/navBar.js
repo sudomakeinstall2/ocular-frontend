@@ -296,9 +296,10 @@ class NavBar extends React.Component {
                         <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
                             <MenuIcon />
                         </IconButton>
-                        <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            Material-UI
-                        </Typography>
+                        <img
+                            src="http://ocular.ai/wp-content/uploads/2018/07/png-logo-centered-light-blue-300x300.png"
+                            style={{width: "3%", height: "auto"}}
+                        />
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
