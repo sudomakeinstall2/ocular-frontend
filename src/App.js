@@ -2,17 +2,13 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import './App.css';
 import About from './components/pages/about'
-import Projects from './components/projects';
 import ProjectForm from './components/projectForm';
 import Login from './components/login';
 import Register from "./components/register";
-import axios from 'axios';
 import MilestoneForm from "./components/milestoneForm";
 import ProposalForm from "./components/proposalForm";
-import Proposals from "./components/proposalList";
 import Album from "./components/pages/first";
 import ProjectPage from "./components/pages/project";
-import * as settings from './components/config';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -25,15 +21,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 class App extends Component {
-    state = {
-        projects: []
-    };
+
 
     componentDidMount() {
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-        axios.get(`${settings.host}/projects/`).then(
-            res => this.setState({projects: res.data})
-        )
+
     }
 
 

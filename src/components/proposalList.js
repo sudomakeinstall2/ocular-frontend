@@ -28,6 +28,7 @@ class Proposals extends React.Component {
         this.state = {
             proposals: [],
             project_id: props.project_id,
+            is_dialog_open: false,
         };
     }
 
@@ -53,7 +54,10 @@ class Proposals extends React.Component {
                 this.setState({proposals: res.data});
             }
         ).catch(res=>{
-            this.props.enqueueSnackbar('error', 'error');
+            this.props.enqueueSnackbar('cant get proposal list', {
+                variant: 'error',
+                autoHideDuration: 2000,
+            });
         })
     }
 
@@ -69,7 +73,6 @@ class Proposals extends React.Component {
             }
         ).catch(
             error => {
-                // console.log('hello', error.response.data);
                 this.props.enqueueSnackbar(error.response.data.detail, {
                     variant: 'error',
                     autoHideDuration: 2000,

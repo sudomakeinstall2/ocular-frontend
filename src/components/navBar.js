@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,12 +20,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import ProposalForm from "./proposalForm";
 import Login from "./login";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Register from "./register";
+import axios from 'axios';
+
 
 
 const styles = theme => ({
@@ -135,6 +134,7 @@ class NavBar extends React.Component {
     };
 
     logout = () => {
+        axios.defaults.headers.common['Authorization'] = "";
         localStorage.clear();
         window.location.reload();
     };
@@ -297,6 +297,7 @@ class NavBar extends React.Component {
                             <MenuIcon />
                         </IconButton>
                         <img
+                            alt="logo"
                             src="http://ocular.ai/wp-content/uploads/2018/07/png-logo-centered-light-blue-300x300.png"
                             style={{width: "3%", height: "auto"}}
                         />

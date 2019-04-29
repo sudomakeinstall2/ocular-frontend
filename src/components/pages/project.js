@@ -1,23 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Projects from "../projects";
-import ProjectDetail from "../projectDetail";
-import Milestones from "../milestones";
+
 import Proposals from "../proposalList";
 import NavBar from "../navBar";
+import MilestonesTimeline from "../milestonesTimeline";
 
 const styles = theme => ({
     appBar: {
@@ -93,12 +84,13 @@ function ProjectPage(props) {
                         <Typography variant="h6" align="center" color="textSecondary" paragraph>
                             Due: {project.deadline}
                         </Typography>
+                        <MilestonesTimeline project_id={project.id}/>
 
                         <div className={classes.heroButtons}>
                             <Grid container spacing={40} justify="center">
-                                <Grid item>
-                                    <Milestones project_id={project.id}/>
-                                </Grid>
+                                {/*<Grid item>*/}
+                                {/*    <Milestones project_id={project.id}/>*/}
+                                {/*</Grid>*/}
                                 <Grid item>
                                     <Proposals project_id={project.id}/>
                                 </Grid>
@@ -115,12 +107,6 @@ function ProjectPage(props) {
             </main>
             {/* Footer */}
             <footer className={classes.footer}>
-                <Typography variant="h6" align="center" gutterBottom>
-                    Footer
-                </Typography>
-                <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                    Something here to give the footer a purpose!
-                </Typography>
             </footer>
             {/* End footer */}
         </React.Fragment>

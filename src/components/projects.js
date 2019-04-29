@@ -10,7 +10,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
-import MilestoneForm from "./milestones";
 import ProjectForm from "./projectForm";
 import * as settings from "./config";
 
@@ -53,7 +52,6 @@ class Projects extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         return (
             <React.Fragment>
                 {this.state.projects.map((project) => (
