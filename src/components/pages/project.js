@@ -84,7 +84,7 @@ function ProjectPage(props) {
                         <Typography variant="h6" align="center" color="textSecondary" paragraph>
                             Due: {project.deadline}
                         </Typography>
-                        <MilestonesTimeline project_id={project.id}/>
+                        <MilestonesTimeline project_id={project.id} project={project}/>
 
                         <div className={classes.heroButtons}>
                             <Grid container spacing={40} justify="center">
@@ -92,7 +92,12 @@ function ProjectPage(props) {
                                 {/*    <Milestones project_id={project.id}/>*/}
                                 {/*</Grid>*/}
                                 <Grid item>
-                                    <Proposals project_id={project.id}/>
+                                    {console.log(localStorage.getItem('user_email'))}
+                                    {console.log(project.owner)}
+                                    {localStorage.getItem('user_email')===project.owner?
+                                        <Proposals project_id={project.id}/> :
+                                        <div/>
+                                    }
                                 </Grid>
                             </Grid>
                         </div>

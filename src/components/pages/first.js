@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Projects from "../projects";
 import NavBar from "../navBar";
+import Example from "../userEmailAutoSuggest"
 
 const styles = theme => ({
     appBar: {
@@ -95,6 +96,7 @@ function Album(props) {
                 <div className={classNames(classes.layout, classes.cardGrid)}>
                     {/* End hero unit */}
                     <Grid container spacing={40}>
+                        {/*<Example/>*/}
                         <Projects/>
                     </Grid>
                 </div>

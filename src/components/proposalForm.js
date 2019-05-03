@@ -3,6 +3,7 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import * as settings from './config';
+import Example from "./userEmailAutoSuggest";
 
 class ProposalForm extends React.Component {
     style = {
@@ -33,7 +34,7 @@ class ProposalForm extends React.Component {
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         axios.post(`${settings.host}project/${project_id}/proposals/`, this.state).then(
             res => console.log(res)
-        )
+        );
         this.props.onSubmit(true);
     }
 
@@ -49,15 +50,16 @@ class ProposalForm extends React.Component {
                     margin="normal"
                     type="number"
                 />
-                <TextField
-                    required
-                    label="user"
-                    name="user"
-                    value={this.state.user}
-                    onChange={this.handleChange}
-                    margin="normal"
-                    type="number"
-                />
+                <Example/>
+                {/*<TextField*/}
+                {/*    required*/}
+                {/*    label="user"*/}
+                {/*    name="user"*/}
+                {/*    value={this.state.user}*/}
+                {/*    onChange={this.handleChange}*/}
+                {/*    margin="normal"*/}
+                {/*    type="number"*/}
+                {/*/>*/}
                 <Button variant="contained" color="primary" onClick={e => this.handleSubmit(e)}>
                     Add Proposal
                 </Button>

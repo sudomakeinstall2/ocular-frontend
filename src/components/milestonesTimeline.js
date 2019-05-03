@@ -39,13 +39,17 @@ class MilestonesTimeline extends Component {
     };
 
     componentDidMount() {
-        this.getData()
+        this.getData();
     }
 
     getData() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         axios.get(`${settings.host}project/${this.props.project_id}/milestones/`).then(
-            res => this.setState({milestones: res.data})
+            res => {
+                this.setState({
+                    milestones: res.data.concat({'title': 'deadline', 'deadline': this.props.project.deadline})}
+                    )
+            }
         )
     }
 
@@ -55,9 +59,9 @@ class MilestonesTimeline extends Component {
     render() {
         const timeline = (
             <div>
-                {/* Bounding box for the Timeline */}
                 <div style={{ width: '80%', height: '100px', margin: '0 auto' }}>
                     <HorizontalTimeline
+                        isOpenEnding={false}
                         index={this.state.curIndex}
                         indexClick={(index) => {
                             this.setState({ curIndex: index, previous: this.state.curIndex });
@@ -101,9 +105,14 @@ class MilestonesTimeline extends Component {
                     </Typography>
                 </div>
                 {(this.state.milestones.length) ? timeline : <div></div>}
-                <Fab onClick={this.handleOpenDialog} style={{margin: 10}}>
-                    <AddIcon/>
-                </Fab>
+                {console.log(this.props)}
+                {this.props.project.owner === localStorage.user_email?
+                    <Fab onClick={this.handleOpenDialog} style={{margin: 10}}>
+                        <AddIcon/>
+                    </Fab>
+                    :
+                    <div/>
+                }
                 {dialog}
             </React.Fragment>
 
