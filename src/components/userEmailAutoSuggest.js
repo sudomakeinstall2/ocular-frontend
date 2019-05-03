@@ -17,8 +17,8 @@ function renderInputComponent(inputProps) {
 
     return (
         <TextField
-            required
-            fullWidth="true"
+            required={true}
+            fullWidth={true}
             {...other}
         />
     );
