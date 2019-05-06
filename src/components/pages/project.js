@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Proposals from "../proposalList";
 import NavBar from "../navBar";
 import MilestonesTimeline from "../milestonesTimeline";
+import Comments from "../comments";
 
 const styles = theme => ({
     appBar: {
@@ -88,9 +89,9 @@ function ProjectPage(props) {
 
                         <div className={classes.heroButtons}>
                             <Grid container spacing={40} justify="center">
-                                {/*<Grid item>*/}
-                                {/*    <Milestones project_id={project.id}/>*/}
-                                {/*</Grid>*/}
+                                <Grid item>
+                                    <Comments project_id={project.id}/>
+                                </Grid>
                                 <Grid item>
                                     {console.log(localStorage.getItem('user_email'))}
                                     {console.log(project.owner)}
