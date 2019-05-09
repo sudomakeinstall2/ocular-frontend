@@ -30,6 +30,20 @@ class Register extends React.Component{
             password2: this.state.password2,
         }).then( response => {
             localStorage.setItem('token', response.data.key);
+            let setUser = (props) => {
+                axios.defaults.headers.common['Authorization'] =
+                    'Token ' + localStorage.getItem('token');
+                axios.get(`${settings.host}user/self/`).then(function (response) {
+                    localStorage.setItem('user_email', response.data.email);
+                    localStorage.setItem('user_id', response.data.id);
+                }).catch(function (error) {
+                    props.enqueueSnackbar(error.response.data.detail, {
+                        variant: 'error',
+                        autoHideDuration: 2000,
+                    });
+                })
+            };
+            setUser(this.props);
             this.props.onSubmit(true);
         }).catch( error => {
             this.props.enqueueSnackbar("Can't register!", {

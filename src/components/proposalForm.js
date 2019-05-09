@@ -29,7 +29,6 @@ class ProposalForm extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log(this.props)
         let project_id = this.props.project_id;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         axios.post(`${settings.host}project/${project_id}/proposals/`, this.state).then(
@@ -37,6 +36,10 @@ class ProposalForm extends React.Component {
         );
         this.props.onSubmit(true);
     }
+
+    handleUserChange = (user) => {
+        this.setState({'user': user});
+    };
 
     render() {
         return (
@@ -50,7 +53,7 @@ class ProposalForm extends React.Component {
                     margin="normal"
                     type="number"
                 />
-                <Example/>
+                <Example handleValue={this.handleUserChange}/>
                 {/*<TextField*/}
                 {/*    required*/}
                 {/*    label="user"*/}

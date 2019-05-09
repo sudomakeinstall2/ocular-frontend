@@ -70,6 +70,8 @@ function getSuggestionValue(suggestion) {
     return suggestion.email;
 }
 
+
+
 const styles = theme => ({
     root: {
         height: 250,
@@ -100,8 +102,7 @@ const styles = theme => ({
 
 class Example extends React.Component {
     state = {
-        single: '',
-        popper: '',
+        username: '',
         suggestions: [],
     };
 
@@ -117,6 +118,11 @@ class Example extends React.Component {
             }
         )
     }
+
+    onSuggestionSelected = (event, data) => {
+        this.setState({'username': data.suggestionValue});
+        this.props.handleValue(data.suggestionValue)
+    };
 
     handleSuggestionsFetchRequested = ({ value }) => {
         this.setState({
@@ -134,6 +140,7 @@ class Example extends React.Component {
         this.setState({
             [name]: newValue,
         });
+        this.props.handleValue(this.state['username'])
     };
 
     render() {
@@ -146,6 +153,7 @@ class Example extends React.Component {
             onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
             getSuggestionValue,
             renderSuggestion,
+            onSuggestionSelected: this.onSuggestionSelected
         };
 
         return (
@@ -155,8 +163,8 @@ class Example extends React.Component {
                     inputProps={{
                         classes,
                         placeholder: 'UserName',
-                        value: this.state.single,
-                        onChange: this.handleChange('single'),
+                        value: this.state.username,
+                        onChange: this.handleChange('username'),
                     }}
                     theme={{
                         container: classes.container,
@@ -169,6 +177,7 @@ class Example extends React.Component {
                             {options.children}
                         </Paper>
                     )}
+                    focusInputOnSuggestionClick={false}
                 />
             </div>
         );
