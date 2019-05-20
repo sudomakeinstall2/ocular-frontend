@@ -41,6 +41,9 @@ class Proposals extends React.Component {
     };
 
     getData(){
+        if (!this.props.is_owner){
+            return;
+        }
         const {project_id} = this.state;
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         let url = null;
@@ -160,7 +163,7 @@ class Proposals extends React.Component {
                         <DialogContentText>
                             You can add a proposal for this project.
                         </DialogContentText>
-                        <ProposalForm project_id={this.state.project_id} onSubmit={this.handleCloseDialog}/>
+                        <ProposalForm is_owner={this.props.is_owner} project_id={this.state.project_id} onSubmit={this.handleCloseDialog}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={()=>{this.handleCloseDialog(false)}} color="primary">

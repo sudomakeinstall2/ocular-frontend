@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios'
-import Popper from '@material-ui/core/Popper';
 import { withStyles } from '@material-ui/core/styles';
 import * as settings from "./config";
 
@@ -100,7 +99,7 @@ const styles = theme => ({
     },
 });
 
-class Example extends React.Component {
+class UserEmailAutoSuggest extends React.Component {
     state = {
         username: '',
         suggestions: [],
@@ -184,8 +183,8 @@ class Example extends React.Component {
     }
 }
 
-Example.propTypes = {
+UserEmailAutoSuggest.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Example);
+export default withStyles(styles)(UserEmailAutoSuggest);

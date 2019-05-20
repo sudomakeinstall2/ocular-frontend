@@ -93,12 +93,7 @@ function ProjectPage(props) {
                                     <Comments project_id={project.id}/>
                                 </Grid>
                                 <Grid item>
-                                    {console.log(localStorage.getItem('user_email'))}
-                                    {console.log(project.owner)}
-                                    {localStorage.getItem('user_email')===project.owner?
-                                        <Proposals project_id={project.id}/> :
-                                        <div/>
-                                    }
+                                    <Proposals is_owner={localStorage.getItem('user_email')===project.owner} project_id={project.id}/>
                                 </Grid>
                             </Grid>
                         </div>

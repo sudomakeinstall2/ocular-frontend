@@ -3,7 +3,7 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import * as settings from './config';
-import Example from "./userEmailAutoSuggest";
+import UserEmailAutoSuggest from "./userEmailAutoSuggest";
 
 class ProposalForm extends React.Component {
     style = {
@@ -19,6 +19,10 @@ class ProposalForm extends React.Component {
             cost: '',
             user: '',
         };
+
+        if (!props.is_owner){
+            this.state['user'] = localStorage.getItem('user_email')
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,7 +57,11 @@ class ProposalForm extends React.Component {
                     margin="normal"
                     type="number"
                 />
-                <Example handleValue={this.handleUserChange}/>
+                {this.props.is_owner ?
+                    <UserEmailAutoSuggest handleValue={this.handleUserChange}/>
+                    :
+                    <div></div>
+                }
                 {/*<TextField*/}
                 {/*    required*/}
                 {/*    label="user"*/}

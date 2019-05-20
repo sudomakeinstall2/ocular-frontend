@@ -24,6 +24,7 @@ class Register extends React.Component{
     }
 
     handleSubmit(event) {
+        axios.defaults.headers.common['Authorization'] = "";
         axios.post(`${settings.host}rest-auth/registration/`, {
             email: this.state.email,
             password1: this.state.password1,
