@@ -90,10 +90,12 @@ function ProjectPage(props) {
                         <div className={classes.heroButtons}>
                             <Grid container spacing={40} justify="center">
                                 <Grid item>
-                                    <Comments project_id={project.id}/>
-                                </Grid>
-                                <Grid item>
                                     <Proposals is_owner={localStorage.getItem('user_email')===project.owner} project_id={project.id}/>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={40} justify="center">
+                                <Grid item>
+                                    <Comments project_id={project.id}/>
                                 </Grid>
                             </Grid>
                         </div>
