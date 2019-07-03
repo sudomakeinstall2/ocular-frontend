@@ -8,8 +8,10 @@ import {Link} from 'react-router-dom';
 
 const classes = {
     card: {
-        minWidth: '150px',
-        margin: 7
+        minWidth: '500px',
+        // minHeight: '200px',
+        margin: 20,
+        padding: 20,
     },
     bullet: {
         display: 'inline-block',
